@@ -7,10 +7,10 @@ user             = node['newrelic']['server_monitoring']['meetme_plugin']['user'
 
 if(node['newrelic']['server_monitoring']['meetme_plugin']['database_names'].empty?)
   require 'chef/mixin/shell_out'
-  database_name_cmd = shell_out!("psql -U postgres -c 'SELECT datname FROM pg_database WHERE datistemplate = false;' | head -n -2 | tail -n +3 | grep -v postgres | xargs")
+  database_name_cmd = shell_out!("psql -U postgres -c 'SELECT datname FROM pg_database WHERE datistemplate = false;' | head -n -2 | tail -n +3 | xargs")
   database_names = database_name_cmd.stdout.split(" ")
 else
-  database_names = node['newrelic']['server_monitoring']['meetme_plugin']['database_names']
+  database_names = ['postgres']
 end
 
 # Set up directories
@@ -62,9 +62,10 @@ smf 'newrelic_plugin_agent' do
   stop_timeout 10
   working_directory "/opt/local/etc/newrelic"
   user user
+  notifies :start, 'service[newrelic_plugin_agent]', :delayed
 end
 
 service 'newrelic_plugin_agent' do
   supports :start => true, :stop => true, :restart => true
-  action :start
+  action :nothing
 end

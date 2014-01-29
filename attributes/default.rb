@@ -12,6 +12,7 @@
 default['newrelic']['server_monitoring']['license'] = "CHANGE_ME"
 default['newrelic']['application_monitoring']['license'] = "CHANGE_ME"
 
+default['newrelic']['server_monitoring']['meetme_plugin']['enabled'] = true
 default['newrelic']['server_monitoring']['meetme_plugin']['config_dir'] = '/opt/local/etc/newrelic/'
 default['newrelic']['server_monitoring']['meetme_plugin']['user'] = 'nobody'
 default['newrelic']['server_monitoring']['meetme_plugin']['database_names'] = []

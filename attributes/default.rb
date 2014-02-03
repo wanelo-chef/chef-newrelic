@@ -17,6 +17,9 @@ default['newrelic']['server_monitoring']['meetme_plugin']['config_dir'] = '/opt/
 default['newrelic']['server_monitoring']['meetme_plugin']['user'] = 'nobody'
 default['newrelic']['server_monitoring']['meetme_plugin']['database_names'] = []
 
+default['newrelic']['logwatcher']['watched_logs'] = {}
+
+
 default['newrelic']['service_name'] = value_for_platform(
     'smartos' => {'default' => 'nrsysmond'},
     'default' => 'newrelic-sysmond'

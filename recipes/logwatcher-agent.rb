@@ -11,21 +11,21 @@ ruby_environment = {
 
 watched_logs = node['newrelic']['logwatcher']['watched_logs']
 
-directory "/opt/newrelic/plugins" do
-  recursive true
-  user owner
-end
-
-# Clone the railsware plugins into place
-git railsware_plugins_path do
-  repository "https://github.com/railsware/newrelic_platform_plugins.git"
-  reference "8edd6d214e462b27fdd07d41712eb7b4fff2f7d8"
-  action :checkout
-  user owner
-end
-
 # Log watcher specific setup
-unless watched_logs.empty?
+if watched_logs.any? && node['newrelic']['logwatcher']['enabled']
+  directory "/opt/newrelic/plugins" do
+    recursive true
+    user owner
+  end
+
+  # Clone the railsware plugins into place
+  git railsware_plugins_path do
+    repository "https://github.com/railsware/newrelic_platform_plugins.git"
+    reference "8edd6d214e462b27fdd07d41712eb7b4fff2f7d8"
+    action :checkout
+    user owner
+  end
+
   execute "gem install bundler" do
     cwd newrelic_logwatcher_path
     environment ruby_environment

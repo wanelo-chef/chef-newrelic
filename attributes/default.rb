@@ -18,6 +18,7 @@ default['newrelic']['server_monitoring']['meetme_plugin']['user'] = 'nobody'
 default['newrelic']['server_monitoring']['meetme_plugin']['database_names'] = []
 
 default['newrelic']['logwatcher']['watched_logs'] = {}
+default['newrelic']['logwatcher']['enabled'] = false
 
 
 default['newrelic']['service_name'] = value_for_platform(

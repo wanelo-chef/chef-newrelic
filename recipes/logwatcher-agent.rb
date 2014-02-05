@@ -13,6 +13,10 @@ watched_logs = node['newrelic']['logwatcher']['watched_logs']
 
 # Log watcher specific setup
 if watched_logs.any? && node['newrelic']['logwatcher']['enabled']
+  package 'ruby193' do
+    action :install
+  end
+
   directory "/opt/newrelic/plugins" do
     recursive true
     user owner
